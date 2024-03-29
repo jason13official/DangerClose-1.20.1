@@ -16,6 +16,8 @@ dependencies {
 
     modImplementation "curse.maven:monolib-968432:${monolib_fabric_file}"
 
+    modImplementation "curse.maven:soul-fired-662413:4971071"
+
     // modImplementation "net.jason13.monolib:monolib-fabric:${minecraft_version}-1.0.0"
 }
 

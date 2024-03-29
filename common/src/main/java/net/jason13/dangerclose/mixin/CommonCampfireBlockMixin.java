@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = CampfireBlock.class, priority = 0)
 public class CommonCampfireBlockMixin {
 	
-	// @Inject(method = "entityInside", at = @At("HEAD"))
+	// @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
 	// private void injected(BlockState $$0, Level $$1, BlockPos $$2, Entity $$3, CallbackInfo ci) {
 	// 	if (!CommonServices.PLATFORM.isModLoaded("soulfired")) {
 	// 		ci.cancel(); // if soulfired isn't installed, cancel vanilla method
