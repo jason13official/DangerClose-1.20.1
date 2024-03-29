@@ -56,8 +56,16 @@ public class DangerClose {
 			immolate(entity);
 		}
 		
-		if (anyTaggedCampfire && (stateInside.getValue(CampfireBlock.LIT) || stateBelow.getValue(CampfireBlock.LIT)) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
-			immolate(entity);
+		if (anyTaggedCampfire && (stateInside.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired"))) {
+			if ((stateInside.getValue(CampfireBlock.LIT))) {
+				immolate(entity);
+			}
+		}
+		
+		if (anyTaggedCampfire && stateBelow.getValue(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
+			if (stateBelow.getValue(CampfireBlock.LIT)) {
+				immolate(entity);
+			}
 		}
 		
 		if (anyTaggedStoneCutter) {
