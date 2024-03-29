@@ -80,6 +80,9 @@ dependencies {
 
     implementation fg.deobf("curse.maven:monolib-968432:${monolib_forge_file}")
 
+    // compatibility import
+    implementation fg.deobf("curse.maven:soul-fired-662413:${soulfired_forge_file}")
+
     // runtimeOnly fg.deobf("net.jason13.monolib:monolib-forge:${minecraft_version}-1.0.0")
     // compileOnly fg.deobf("net.jason13.monolib:monolib-forge:${minecraft_version}-1.0.0")
 }

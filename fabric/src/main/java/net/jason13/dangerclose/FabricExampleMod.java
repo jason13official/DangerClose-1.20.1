@@ -8,20 +8,16 @@ import net.jason13.monolib.methods.BlockMethods;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 
-import java.io.IOException;
-import java.util.Iterator;
-
 public class FabricExampleMod implements ModInitializer {
     
     public boolean debuggingEnabled = false;
-    public boolean SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
+    public static boolean SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
     
     @Override
     public void onInitialize() {

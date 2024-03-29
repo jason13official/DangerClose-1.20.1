@@ -14,7 +14,9 @@ public class CommonConstants {
 	
 	public static final Map<String, Boolean> DEFAULT_CONFIGURATION = Map.ofEntries(
 		Map.entry("TORCHES_BURN", false),
+		Map.entry("SOUL_TORCHES_BURN", false),
 		Map.entry("CAMPFIRES_BURN", true),
+		Map.entry("SOUL_CAMPFIRES_BURN", true),
 		Map.entry("STONECUTTERS_CUT", true),
 		Map.entry("ENABLE_BLAZE_DAMAGE", true),
 		Map.entry("ENABLE_MAGMA_CUBE_DAMAGE", true),

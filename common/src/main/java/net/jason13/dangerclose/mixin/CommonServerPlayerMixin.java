@@ -1,7 +1,6 @@
 package net.jason13.dangerclose.mixin;
 
 import net.jason13.dangerclose.CommonConstants;
-import net.jason13.dangerclose.util.DangerClose;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;

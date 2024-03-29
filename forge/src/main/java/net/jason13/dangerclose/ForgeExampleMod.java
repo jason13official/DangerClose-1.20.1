@@ -1,10 +1,10 @@
 package net.jason13.dangerclose;
 
+import net.jason13.dangerclose.platform.CommonServices;
 import net.jason13.dangerclose.util.DangerClose;
 import net.jason13.monolib.methods.BlockMethods;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -15,12 +15,12 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
-
 @Mod(CommonConstants.MOD_ID)
 public class ForgeExampleMod {
     
     public boolean debuggingEnabled = false;
+    
+    public static boolean SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
     
     public ForgeExampleMod() {
     
@@ -31,6 +31,8 @@ public class ForgeExampleMod {
         // Use Forge to bootstrap the Common mod.
         CommonConstants.LOG.info("Hello Forge world!");
         CommonClass.init();
+        
+        SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
         
         MinecraftForge.EVENT_BUS.register(this);
     }

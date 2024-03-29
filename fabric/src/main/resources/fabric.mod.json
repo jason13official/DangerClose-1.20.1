@@ -31,7 +31,7 @@
         "monolib": ">=0"
     },
     "suggests": {
-        "another-mod": "*"
+        "soulfired": "^3.2.1.0"
     }
 }
   

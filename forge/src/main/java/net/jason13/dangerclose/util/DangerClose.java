@@ -1,10 +1,14 @@
 package net.jason13.dangerclose.util;
 
 import net.jason13.dangerclose.CommonClass;
+import net.jason13.dangerclose.ForgeExampleMod;
+import net.jason13.dangerclose.optional.SoulFired;
 import net.jason13.dangerclose.platform.CommonServices;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -22,6 +26,20 @@ import java.util.stream.Stream;
 public class DangerClose {
 	
 	public static void immolate(LivingEntity entity) {
+		entity.setSecondsOnFire(2);
+	}
+	
+	private static void setOnFire(Entity entity, Boolean trueForSoul) {
+		
+		if (ForgeExampleMod.SOULFIRED_INSTALLED) {
+			if (trueForSoul) {
+				SoulFired.setOnSoulFire(entity, 2);
+			} 
+			else {
+				SoulFired.setOnRegularFire(entity, 2);
+			}
+			return;
+		}
 		
 		entity.setSecondsOnFire(2);
 	}
@@ -48,23 +66,41 @@ public class DangerClose {
 		belowTagsHolder.forEach(belowTags::add);
 		
 		boolean anyTaggedTorch = CommonClass.TORCHES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER));
+		boolean anyTaggedSoulTorch = CommonClass.SOUL_TORCHES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER));
 		boolean anyTaggedCampfire = CommonClass.CAMPFIRES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER));
+		boolean anyTaggedSoulCampfire = CommonClass.SOUL_CAMPFIRES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER));
 		boolean anyTaggedMagma = CommonClass.ENABLE_MAGMA_BLOCK_DAMAGE && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER));
 		boolean anyTaggedStoneCutter = CommonClass.STONECUTTERS_CUT && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER));
 		
 		if (anyTaggedTorch || anyTaggedMagma) {
-			immolate(entity);
+			setOnFire(entity, false);
+		}
+		
+		if (anyTaggedSoulTorch) {
+			setOnFire(entity, true);
 		}
 		
 		if (anyTaggedCampfire && (stateInside.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired"))) {
 			if ((stateInside.getValue(CampfireBlock.LIT))) {
-				immolate(entity);
+				setOnFire(entity, false);
 			}
 		}
 		
 		if (anyTaggedCampfire && stateBelow.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
 			if (stateBelow.getValue(CampfireBlock.LIT)) {
-				immolate(entity);
+				setOnFire(entity, false);
+			}
+		}
+		
+		if (anyTaggedSoulCampfire && (stateInside.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired"))) {
+			if ((stateInside.getValue(CampfireBlock.LIT))) {
+				setOnFire(entity, true);
+			}
+		}
+		
+		if (anyTaggedSoulCampfire && stateBelow.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
+			if (stateBelow.getValue(CampfireBlock.LIT)) {
+				setOnFire(entity, true);
 			}
 		}
 		
@@ -75,15 +111,15 @@ public class DangerClose {
 		List<Mob> nearby = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox());
 		for (Mob mob : nearby) {
 			if (mob.isOnFire()) {
-				immolate(entity);
+				setOnFire(entity, false);
 			} else if (entity.isOnFire()) {
 				immolate(mob);
 			}
 			if (CommonClass.ENABLE_BLAZE_DAMAGE && mob instanceof Blaze) {
-				immolate(entity);
+				setOnFire(entity, false);
 			}
 			if (CommonClass.ENABLE_MAGMA_CUBE_DAMAGE && mob instanceof MagmaCube) {
-				immolate(entity);
+				setOnFire(entity, false);
 			}
 		}
 	}

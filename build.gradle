@@ -86,7 +86,9 @@ subprojects {
                 "license": license,
                 "description": project.description,
                 "monolib_forge_file": monolib_forge_file,
-                "monolib_fabric_file": monolib_fabric_file
+                "monolib_fabric_file": monolib_fabric_file,
+                "soulfired_forge_file": soulfired_forge_file,
+                "soulfired_fabric_file": soulfired_fabric_file
         ]
 
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
