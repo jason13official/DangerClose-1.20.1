@@ -18,6 +18,8 @@ public class CommonServerPlayerMixin {
 	@Inject(method = "tick", at = @At("RETURN"))
 	private void injected(CallbackInfo ci) {
 		
+		System.out.println("ticking on player!");
+		
 		ServerPlayer player = ((ServerPlayer)(Object)this);
 		
 		try (Level level = player.level()) {

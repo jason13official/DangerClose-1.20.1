@@ -2,11 +2,20 @@ package net.jason13.dangerclose;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.jason13.dangerclose.util.DangerClose;
 import net.jason13.monolib.methods.BlockMethods;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
+
+import java.io.IOException;
+import java.util.Iterator;
 
 public class FabricExampleMod implements ModInitializer {
     
@@ -23,23 +32,66 @@ public class FabricExampleMod implements ModInitializer {
         CommonConstants.LOG.info("Hello Fabric world!");
         CommonClass.init();
         
-        ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());
+        
+        ServerTickEvents.START_SERVER_TICK.register(new ServerTickHandler());
         
     }
     
-    public class PlayerTickHandler implements ServerTickEvents.StartTick {
+    public class ServerTickHandler implements ServerTickEvents.StartTick {
         @Override
         public void onStartTick(MinecraftServer server) {
-            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            
+            // Iterator<ServerLevel> iterator = server.getAllLevels().iterator();
+            
+            // while (iterator.hasNext()) {
                 
-                boolean leftHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, player.getOffhandItem());
-                boolean rightHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, player.getMainHandItem());
+                // try (ServerLevel level = iterator.next()) {
                 
-                if (!debuggingEnabled && leftHandCommand && rightHandCommand) {
-                    debuggingEnabled = true;
-                    player.sendSystemMessage(Component.literal("debuggingEnabled" + CommonConstants.MOD_NAME));
+            
+            for (ServerLevel level : server.getAllLevels()) {
+                for (Entity entity : level.getAllEntities()) {
+                    if (entity instanceof Mob) {
+                        DangerClose.detect(level, (LivingEntity) entity);
+                    }
+                    if (entity instanceof Player) {
+                        
+                        DangerClose.detect(level, (LivingEntity) entity);
+                        
+                        boolean leftHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, ((Player) entity).getOffhandItem());
+                        boolean rightHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, ((Player) entity).getMainHandItem());
+                        
+                        if (!debuggingEnabled && leftHandCommand && rightHandCommand) {
+                            debuggingEnabled = true;
+                            entity.sendSystemMessage(Component.literal("debuggingEnabled" + CommonConstants.MOD_NAME));
+                        }
+                    }
                 }
             }
+                // }
+                // catch (IOException e) {
+                //     CommonConstants.LOG.info(e.getMessage());
+                // }
+            // }
+            
+            
+            
+            // for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            //
+            //     try (ServerLevel level = player.serverLevel()) {
+            //         DangerClose.detect(level, player);
+            //     }
+            //     catch (IOException e) {
+            //         CommonConstants.LOG.info(e.getMessage());
+            //     }
+            //
+            //     boolean leftHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, player.getOffhandItem());
+            //     boolean rightHandCommand = BlockMethods.compareBlockToItemStack(Blocks.COMMAND_BLOCK, player.getMainHandItem());
+            //
+            //     if (!debuggingEnabled && leftHandCommand && rightHandCommand) {
+            //         debuggingEnabled = true;
+            //         player.sendSystemMessage(Component.literal("debuggingEnabled" + CommonConstants.MOD_NAME));
+            //     }
+            // }
         }
     }
 }

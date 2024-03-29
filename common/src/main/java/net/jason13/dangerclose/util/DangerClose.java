@@ -38,8 +38,6 @@ public class DangerClose {
 		BlockState stateInside = level.getBlockState(inside);
 		BlockState stateBelow = level.getBlockState(below);
 		
-		List<Mob> nearby = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox());
-		
 		Stream<TagKey<Block>> insideTagsHolder = level.getBlockState(inside).getTags();
 		Stream<TagKey<Block>> belowTagsHolder = level.getBlockState(below).getTags();
 		
@@ -66,6 +64,7 @@ public class DangerClose {
 			entity.hurt(level.damageSources().cactus(), 4.0F);
 		}
 		
+		List<Mob> nearby = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, entity, entity.getBoundingBox());
 		for (Mob mob : nearby) {
 			if (mob.isOnFire()) {
 				immolate(entity);

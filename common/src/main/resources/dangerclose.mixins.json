@@ -12,8 +12,6 @@
         "CommonMixinMinecraft"
     ],
     "server": [
-        "CommonServerPlayerMixin",
-        "CommonMobMixin"
     ],
     "injectors": {
         "defaultRequire": 1

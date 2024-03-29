@@ -18,6 +18,8 @@ public class CommonMobMixin {
 	@Inject(method = "tick", at = @At("RETURN"))
 	private void injected(CallbackInfo ci) {
 		
+		System.out.println("ticking on mob!");
+		
 		Mob mob = ((Mob)(Object)this);
 		
 		try (Level level = mob.level()) {
