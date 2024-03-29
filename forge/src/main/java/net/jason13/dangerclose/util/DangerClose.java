@@ -34,14 +34,14 @@ public class DangerClose {
 		if (ForgeExampleMod.SOULFIRED_INSTALLED) {
 			if (trueForSoul) {
 				SoulFired.setOnSoulFire(entity, 2);
-			} 
+			}
 			else {
 				SoulFired.setOnRegularFire(entity, 2);
 			}
 			return;
 		}
 		
-		entity.setSecondsOnFire(2);
+		immolate((LivingEntity) entity);
 	}
 	
 	public static void detect(ServerLevel level, LivingEntity entity) {
@@ -65,14 +65,20 @@ public class DangerClose {
 		insideTagsHolder.forEach(insideTags::add);
 		belowTagsHolder.forEach(belowTags::add);
 		
-		boolean anyTaggedTorch = CommonClass.TORCHES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER));
-		boolean anyTaggedSoulTorch = CommonClass.SOUL_TORCHES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER));
-		boolean anyTaggedCampfire = CommonClass.CAMPFIRES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER));
-		boolean anyTaggedSoulCampfire = CommonClass.SOUL_CAMPFIRES_BURN && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER));
-		boolean anyTaggedMagma = CommonClass.ENABLE_MAGMA_BLOCK_DAMAGE && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER));
-		boolean anyTaggedStoneCutter = CommonClass.STONECUTTERS_CUT && insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER));
+		boolean anyTaggedTorch = CommonClass.TORCHES_BURN &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.TORCH_BURN_DANGER)));
+		boolean anyTaggedSoulTorch = CommonClass.SOUL_TORCHES_BURN &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_TORCH_BURN_DANGER)));
+		boolean anyTaggedCampfire = CommonClass.CAMPFIRES_BURN &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.CAMPFIRE_BURN_DANGER)));
+		boolean anyTaggedSoulCampfire = CommonClass.SOUL_CAMPFIRES_BURN &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.SOUL_CAMPFIRE_BURN_DANGER)));
+		boolean anyTaggedMagma = CommonClass.ENABLE_MAGMA_BLOCK_DAMAGE &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.MAGMA_BURN_DANGER)));
+		boolean anyTaggedStoneCutter = CommonClass.STONECUTTERS_CUT &&
+			(insideTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER)) || belowTags.stream().anyMatch(Predicate.isEqual(CommonClass.STONECUTTER_DANGER)));
 		
-		if (anyTaggedTorch || anyTaggedMagma) {
+		if (anyTaggedTorch) {
 			setOnFire(entity, false);
 		}
 		
@@ -80,25 +86,29 @@ public class DangerClose {
 			setOnFire(entity, true);
 		}
 		
-		if (anyTaggedCampfire && (stateInside.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired"))) {
+		if (anyTaggedMagma) {
+			setOnFire(entity, false);
+		}
+		
+		if (anyTaggedCampfire && (stateInside.hasProperty(CampfireBlock.LIT))) {
 			if ((stateInside.getValue(CampfireBlock.LIT))) {
 				setOnFire(entity, false);
 			}
 		}
 		
-		if (anyTaggedCampfire && stateBelow.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
+		if (anyTaggedCampfire && stateBelow.hasProperty(CampfireBlock.LIT)) {
 			if (stateBelow.getValue(CampfireBlock.LIT)) {
 				setOnFire(entity, false);
 			}
 		}
 		
-		if (anyTaggedSoulCampfire && (stateInside.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired"))) {
+		if (anyTaggedSoulCampfire && stateInside.hasProperty(CampfireBlock.LIT)) {
 			if ((stateInside.getValue(CampfireBlock.LIT))) {
 				setOnFire(entity, true);
 			}
 		}
 		
-		if (anyTaggedSoulCampfire && stateBelow.hasProperty(CampfireBlock.LIT) && !CommonServices.PLATFORM.isModLoaded("soulfired")) {
+		if (anyTaggedSoulCampfire && stateBelow.hasProperty(CampfireBlock.LIT)) {
 			if (stateBelow.getValue(CampfireBlock.LIT)) {
 				setOnFire(entity, true);
 			}
@@ -113,7 +123,7 @@ public class DangerClose {
 			if (mob.isOnFire()) {
 				setOnFire(entity, false);
 			} else if (entity.isOnFire()) {
-				immolate(mob);
+				setOnFire(mob, false);
 			}
 			if (CommonClass.ENABLE_BLAZE_DAMAGE && mob instanceof Blaze) {
 				setOnFire(entity, false);

@@ -16,10 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MagmaBlock.class)
 public class CommonMagmaBlockMixin {
 	
-	/**
-	 * @author Jason13
-	 * @reason Not cancellable, needs cancelling.
-	 */
-	@Overwrite
-	public void stepOn(Level $$0, BlockPos $$1, BlockState $$2, Entity $$3) {}
+	@Inject(method = "stepOn", at = @At(("HEAD")), cancellable = true)
+	public void injected(Level $$0, BlockPos $$1, BlockState $$2, Entity $$3, CallbackInfo ci) {
+		ci.cancel();
+	}
 }

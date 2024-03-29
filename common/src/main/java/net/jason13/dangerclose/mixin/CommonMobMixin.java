@@ -23,7 +23,7 @@ public class CommonMobMixin {
 		
 		try (Level level = mob.level()) {
 			if (!level.isClientSide()) {
-				DangerClose.detect((ServerLevel) level, mob);
+				// DangerClose.detect((ServerLevel) level, mob);
 			}
 		}
 		catch (IOException e) {

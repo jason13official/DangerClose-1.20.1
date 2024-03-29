@@ -23,7 +23,7 @@ public class CommonServerPlayerMixin {
 		
 		try (Level level = player.level()) {
 			if (!level.isClientSide()) {
-				DangerClose.detect((ServerLevel) level, player);
+				// DangerClose.detect((ServerLevel) level, player);
 			}
 		}
 		catch (IOException e) {
