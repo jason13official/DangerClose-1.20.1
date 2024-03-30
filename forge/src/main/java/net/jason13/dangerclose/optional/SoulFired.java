@@ -11,4 +11,8 @@ public final class SoulFired {
 	public static void setOnSoulFire(Entity entity, int seconds) {
 		FireManager.setOnFire(entity, seconds, new ResourceLocation("soul"));
 	}
+	
+	public static void setOnTypedFire(Entity entity, int seconds, ResourceLocation fireType) {
+		FireManager.setOnFire(entity, seconds, fireType);
+	}
 }
