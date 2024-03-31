@@ -61,7 +61,7 @@ public class CommonClass {
             STONECUTTERS_CUT = true;
             ENABLE_BLAZE_DAMAGE = true;
             ENABLE_MAGMA_CUBE_DAMAGE = true;
-            ENABLE_MAGMA_BLOCK_DAMAGE = false;
+            ENABLE_MAGMA_BLOCK_DAMAGE = true;
             ENABLE_DANGER_CLOSE = true;
             CommonConfigIO.initializeConfiguration();
         }
@@ -82,7 +82,7 @@ public class CommonClass {
         CommonConstants.LOG.info("STONECUTTERS_CUT set to" + " true!");
         CommonConstants.LOG.info("ENABLE_BLAZE_DAMAGE set to" + " true!");
         CommonConstants.LOG.info("ENABLE_MAGMA_CUBE_DAMAGE set to" + " true!");
-        CommonConstants.LOG.info("ENABLE_MAGMA_BLOCK_DAMAGE set to" + " false!");
+        CommonConstants.LOG.info("ENABLE_MAGMA_BLOCK_DAMAGE set to" + " true!");
         CommonConstants.LOG.info("ENABLE_DANGER_CLOSE set to" + " true!");
     }
 }

@@ -20,7 +20,7 @@ public class CommonConstants {
 		Map.entry("STONECUTTERS_CUT", true),
 		Map.entry("ENABLE_BLAZE_DAMAGE", true),
 		Map.entry("ENABLE_MAGMA_CUBE_DAMAGE", true),
-		Map.entry("ENABLE_MAGMA_BLOCK_DAMAGE", false),
+		Map.entry("ENABLE_MAGMA_BLOCK_DAMAGE", true),
 		Map.entry("ENABLE_DANGER_CLOSE", true)
 	);
 }
