@@ -17,7 +17,7 @@ dependencies {
     modImplementation "curse.maven:monolib-968432:${monolib_fabric_file}"
 
     // compatibility import
-    modImplementation "curse.maven:soul-fired-662413:${soulfired_fabric_file}"
+    modImplementation "it.crystalnest:soul-fire-d-fabric:${minecraft_version}-${soul_fire_d_version}"
 
     // modImplementation "curse.maven:soul-fired-662413:4971071"
 

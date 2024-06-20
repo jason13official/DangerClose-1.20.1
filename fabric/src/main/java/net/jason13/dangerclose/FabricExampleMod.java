@@ -2,7 +2,6 @@ package net.jason13.dangerclose;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.jason13.dangerclose.platform.CommonServices;
 import net.jason13.dangerclose.util.DangerClose;
 import net.jason13.monolib.methods.BlockMethods;
 import net.minecraft.network.chat.Component;
@@ -17,8 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 public class FabricExampleMod implements ModInitializer {
     
     public boolean debuggingEnabled = false;
-    public static boolean SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
-    
+
     @Override
     public void onInitialize() {
         
@@ -29,9 +27,7 @@ public class FabricExampleMod implements ModInitializer {
         // Use Fabric to bootstrap the Common mod.
         CommonConstants.LOG.info("Hello Fabric world!");
         CommonClass.init();
-        
-        SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
-        
+
         ServerTickEvents.START_SERVER_TICK.register(new ServerTickHandler());
         
     }

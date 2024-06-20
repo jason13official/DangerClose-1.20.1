@@ -1,12 +1,10 @@
 package net.jason13.dangerclose.util;
 
-import crystalspider.soulfired.api.type.FireTyped;
+import it.crystalnest.soul_fire_d.api.type.FireTyped;
 import net.jason13.dangerclose.CommonClass;
-import net.jason13.dangerclose.ForgeExampleMod;
+import net.jason13.dangerclose.CommonConstants;
 import net.jason13.dangerclose.optional.SoulFired;
-import net.jason13.dangerclose.platform.CommonServices;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -33,7 +31,7 @@ public class DangerClose {
 	
 	private static void setOnFire(Entity entity, Boolean trueForSoul) {
 		
-		if (ForgeExampleMod.SOULFIRED_INSTALLED) {
+		if (CommonConstants.SOUL_FIRE_D_INSTALLED) {
 			if (trueForSoul) {
 				SoulFired.setOnSoulFire(entity, 2);
 			}
@@ -49,7 +47,7 @@ public class DangerClose {
 	private static void spreadFire(Entity entity, Mob mob) {
 		if (mob.isOnFire() && !entity.isOnFire()) {
 			
-			if (ForgeExampleMod.SOULFIRED_INSTALLED) {
+			if (CommonConstants.SOUL_FIRE_D_INSTALLED) {
 				SoulFired.setOnTypedFire(entity, 2, ((FireTyped) entity).getFireType());
 				return;
 			}
@@ -58,7 +56,7 @@ public class DangerClose {
 		}
 		else if (entity.isOnFire() && !mob.isOnFire()) {
 			
-			if (ForgeExampleMod.SOULFIRED_INSTALLED) {
+			if (CommonConstants.SOUL_FIRE_D_INSTALLED) {
 				SoulFired.setOnTypedFire(entity, 2, ((FireTyped) entity).getFireType());
 				return;
 			}
