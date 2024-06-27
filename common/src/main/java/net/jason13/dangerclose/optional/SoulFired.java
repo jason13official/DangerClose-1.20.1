@@ -1,6 +1,6 @@
 package net.jason13.dangerclose.optional;
 
-import crystalspider.soulfired.api.FireManager;
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 

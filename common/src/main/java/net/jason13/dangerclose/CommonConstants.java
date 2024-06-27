@@ -1,9 +1,9 @@
 package net.jason13.dangerclose;
 
+import net.jason13.dangerclose.platform.CommonServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CommonConstants {
@@ -23,4 +23,6 @@ public class CommonConstants {
 		Map.entry("ENABLE_MAGMA_BLOCK_DAMAGE", true),
 		Map.entry("ENABLE_DANGER_CLOSE", true)
 	);
+
+  public static boolean SOUL_FIRE_D_INSTALLED = CommonServices.PLATFORM.isModLoaded("soul_fire_d");
 }

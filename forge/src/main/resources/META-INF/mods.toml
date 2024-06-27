@@ -30,9 +30,9 @@ mandatory = true
 versionRange = "[0, )"
 ordering = "NONE"
 side = "BOTH"
-[[dependencies.modid]]
-modId="soulfired"
-mandatory=false # Set it to false if Soul Fire'd should be an optional dependency
-versionRange="[3.2.1.0,)" # As the time of writing, 3.2.1.0 is the latest version
-ordering="NONE"
-side="BOTH"
+[[dependencies.${mod_id}]]
+modId = "soul_fire_d"
+mandatory = false
+versionRange = "[${soul_fire_d_version},)"
+ordering = "NONE"
+side = "BOTH"

@@ -60,6 +60,16 @@ subprojects {
         maven {
             url = 'https://cursemaven.com'
         }
+        // Crystal Nest repository where Soul Fire'd is hosted.
+        maven {
+            name = "Crystal Nest"
+            url = "https://maven.crystalnest.it"
+        }
+        // Fuzs repository where Soul Fire'd required dependency FCAP is hosted.
+        maven {
+            name = "Fuzs Mod Resources"
+            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -87,8 +97,7 @@ subprojects {
                 "description": project.description,
                 "monolib_forge_file": monolib_forge_file,
                 "monolib_fabric_file": monolib_fabric_file,
-                "soulfired_forge_file": soulfired_forge_file,
-                "soulfired_fabric_file": soulfired_fabric_file
+                "soul_fire_d_version": soul_fire_d_version
         ]
 
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
