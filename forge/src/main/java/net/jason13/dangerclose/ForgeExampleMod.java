@@ -1,6 +1,5 @@
 package net.jason13.dangerclose;
 
-import net.jason13.dangerclose.platform.CommonServices;
 import net.jason13.dangerclose.util.DangerClose;
 import net.jason13.monolib.methods.BlockMethods;
 import net.minecraft.network.chat.Component;
@@ -19,9 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeExampleMod {
     
     public boolean debuggingEnabled = false;
-    
-    public static boolean SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
-    
+
     public ForgeExampleMod() {
     
         // This method is invoked by the Forge mod loader when it is ready
@@ -31,9 +28,7 @@ public class ForgeExampleMod {
         // Use Forge to bootstrap the Common mod.
         CommonConstants.LOG.info("Hello Forge world!");
         CommonClass.init();
-        
-        SOULFIRED_INSTALLED = CommonServices.PLATFORM.isModLoaded("soulfired");
-        
+
         MinecraftForge.EVENT_BUS.register(this);
     }
     
